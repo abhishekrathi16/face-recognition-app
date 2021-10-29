@@ -21,7 +21,7 @@ function startVideo() {
 video.addEventListener('play', () => {
   const canvas = faceapi.createCanvasFromMedia(video)
   document.body.append(canvas)
-  const displaySize = { width: video.width, height: video.height }
+  const displaySize = { width: 600, height: 480 }
   faceapi.matchDimensions(canvas, displaySize)
   setInterval(async () => {
     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions().withAgeAndGender();
@@ -38,12 +38,6 @@ video.addEventListener('play', () => {
   }, 100)
 })
 
-function interpolateAgePredictions(age) {
-    predictedAges = [age].concat(predictedAges).slice(0, 30);
-    const avgPredictedAge =
-      predictedAges.reduce((total, a) => total + a) / predictedAges.length;
-    return avgPredictedAge;
-  }
 
 //fixing video width for smaller screens
 function screenResize(isScreenSmall) {
